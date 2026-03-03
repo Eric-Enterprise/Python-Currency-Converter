@@ -1,23 +1,27 @@
 import customtkinter as ctk
+import subprocess
+import sys
 
 rates = {
-    "EUR": 1.0,
-    "USD": 1.1,
-    "JPY": 160.0,
-    "SEK": 11.5
+    "EUR(Euro)": 1.0,
+    "USD(US Dollar)": 1.1,
+    "JPY(Japanese Yen)": 160.0,
+    "SEK(Swedish Krona)": 11.5
 }
 
 def convert():
     amount = float(entry.get())
     from_currency = from_box.get()
     to_currency = to_box.get()
-
     eur = amount / rates[from_currency]
     result = eur * rates[to_currency]
-
     result_label.configure(
         text=f"{amount:.2f} {from_currency} = {result:.2f} {to_currency}"
     )
+
+def switch_language():
+    subprocess.Popen([sys.executable, "app_en.py"])
+    root.destroy()
 
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
@@ -31,13 +35,14 @@ entry.pack(pady=10)
 
 from_box = ctk.CTkComboBox(root, values=list(rates.keys()))
 from_box.pack(pady=5)
-from_box.set("EUR")
+from_box.set("EUR(Euro)")
 
 to_box = ctk.CTkComboBox(root, values=list(rates.keys()))
 to_box.pack(pady=5)
-to_box.set("USD")
+to_box.set("USD(US Dollar)")
 
 ctk.CTkButton(root, text="Umrechnen", command=convert).pack(pady=10)
+ctk.CTkButton(root, text="Switch to English", command=switch_language).pack(pady=5)
 
 result_label = ctk.CTkLabel(root, text="")
 result_label.pack(pady=10)
