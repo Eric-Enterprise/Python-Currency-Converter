@@ -26,7 +26,7 @@ root = ctk.CTk()
 root.title("Währungsrechner")
 root.geometry("350x300")
 
-entry = ctk.CTkEntry(root, placeholder_text="Betrag eingeben")
+entry = ctk.CTkEntry(root, placeholder_text="Array eingeben")
 entry.pack(pady=10)
 
 from_box = ctk.CTkComboBox(root, values=list(rates.keys()))
