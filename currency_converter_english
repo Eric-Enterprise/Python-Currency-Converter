@@ -20,7 +20,6 @@ def convert():
     )
 
 def switch_language():
-    # Switch back to German version
     subprocess.Popen([sys.executable, "app.py"])
     root.destroy()  # Close current window
 
