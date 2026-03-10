@@ -1,5 +1,5 @@
 import customtkinter as ctk
-
+print("Nope")
 rates = {
     "EUR": 1.0,
     "USD": 1.1,
