@@ -9,8 +9,9 @@ rates = {
     "Bosnische Mark": 1.95583,
     "Türkische Lira": 35,
     "USD": 1.1  # NEU: US-Dollar als zusätzliche Währung
+   
 }
-
+print("Hallo")
 # Funktion zum Umrechnen
 def convert():
     try:
