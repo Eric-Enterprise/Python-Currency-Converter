@@ -1,45 +1,56 @@
-import customtkinter as ctk
+import tkinter as tk
+from tkinter import ttk
 
+# Wechselkurse
 rates = {
-    "EUR": 1.0,
-    "USD": 1.1,
-    "JPY": 160.0,
-    "SEK": 11.5
+    "Euro": 1.0,
+    "Yen": 160,
+    "Schwedische Kronen": 11.2,
+    "Bosnische Mark": 1.95583,
+    "Türkische Lira": 35,
+    "USD": 1.1  # NEU: US-Dollar als zusätzliche Währung
 }
 
+# Funktion zum Umrechnen
 def convert():
-    amount = float(entry.get())
-    from_currency = from_box.get()
-    to_currency = to_box.get()
+    try:
+        amount = float(entry.get())
+        from_currency = from_box.get()
+        to_currency = to_box.get()
 
-    eur = amount / rates[from_currency]
-    result = eur * rates[to_currency]
+        euro = amount / rates[from_currency]
+        result = euro * rates[to_currency]
 
-    result_label.configure(
-        text=f"{amount:.2f} {from_currency} = {result:.2f} {to_currency}"
-    )
+        result_label.config(text=str(round(result, 2)) + " " + to_currency)
+    except ValueError:
+        result_label.config(text="Bitte Zahl eingeben!")
 
-ctk.set_appearance_mode("System")
-ctk.set_default_color_theme("blue")
+# GUI erstellen
+root = tk.Tk()
+root.title("Currency Converter - My Feature")
 
-root = ctk.CTk()
-root.title("Währungsrechner")
-root.geometry("350x300")
+# Betrag
+tk.Label(root, text="Betrag").pack()
+entry = tk.Entry(root)
+entry.pack()
 
-entry = ctk.CTkEntry(root, placeholder_text="Array eingeben")
-entry.pack(pady=10)
+# Von Währung
+tk.Label(root, text="Von").pack()
+from_box = ttk.Combobox(root, values=list(rates.keys()))
+from_box.pack()
+from_box.current(0)
 
-from_box = ctk.CTkComboBox(root, values=list(rates.keys()))
-from_box.pack(pady=5)
-from_box.set("EUR")
+# Nach Währung
+tk.Label(root, text="Nach").pack()
+to_box = ttk.Combobox(root, values=list(rates.keys()))
+to_box.pack()
+to_box.current(1)
 
-to_box = ctk.CTkComboBox(root, values=list(rates.keys()))
-to_box.pack(pady=5)
-to_box.set("USD")
+# Button Umrechnen
+tk.Button(root, text="Umrechnen", command=convert).pack()
 
-ctk.CTkButton(root, text="Umrechnen", command=convert).pack(pady=10)
-
-result_label = ctk.CTkLabel(root, text="")
-result_label.pack(pady=10)
+# Ergebnis
+result_label = tk.Label(root, text="Ergebnis")
+result_label.pack()
 
 root.mainloop()
